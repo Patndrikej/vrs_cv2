@@ -78,6 +78,8 @@ int main(void)
     GPIOA->PUPDR |= (uint32_t)((0b01)<<(5*2));
     GPIOA->OSPEEDR |= (uint32_t)((0b11)<<(5*2));
 
+    // komentár
+
     /*
 
     RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA,ENABLE);  //zapnutie periferie GPIOA
