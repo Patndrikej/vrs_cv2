@@ -49,7 +49,8 @@ SOFTWARE.
 int main(void)
 {
   int i = 0;
-
+  int k = 0;
+  int p = 0;
   /**
   *  IMPORTANT NOTE!
   *  See the <system_*.c> file and how/if the SystemInit() function updates 
@@ -115,6 +116,19 @@ int main(void)
 
 	  GPIOA->BSRRH |= ((uint16_t)(1<<5));
 	  GPIOA->BSRRH &= ~((uint16_t)(1<<5));
+
+	  //PR3
+	  GPIOA->ODR|=(uint16_t)((0b1)<<5);
+
+	  for(k;k < 999999;k++)
+	  {
+
+	  }
+	  GPIOA->ODR&= ~((uint16_t)((0b1)<<5));
+	  for(p;p < 999999 ;p++)
+	  	  {
+
+	  	  }
 
 	i++;
   }
