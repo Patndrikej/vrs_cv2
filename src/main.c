@@ -72,11 +72,17 @@ int main(void)
 
   /* Infinite loop */
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
+  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC,ENABLE);
 
     GPIOA->MODER |= (uint32_t)((0b01)<<(5*2));
     GPIOA->OTYPER &= ~((0b1)<<5);
     GPIOA->PUPDR |= (uint32_t)((0b01)<<(5*2));
     GPIOA->OSPEEDR |= (uint32_t)((0b11)<<(5*2));
+
+
+    GPIOC->MODER &= ~((0b11)<<(13*2));
+    GPIOC->OTYPER &= ~((0b1)<<13);
+    GPIOC->PUPDR &= ~((0b11)<<(13*2));
 
     // komentár
 
