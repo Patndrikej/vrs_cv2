@@ -30,6 +30,8 @@ SOFTWARE.
 #include <stddef.h>
 #include "stm32l1xx.h"
 
+int getValue(uint16_t button);
+
 
 /* Private typedef */
 /* Private define  */
@@ -51,6 +53,7 @@ int main(void)
   int i = 0;
   int k = 0;
   int p = 0;
+  int button=0;
   /**
   *  IMPORTANT NOTE!
   *  See the <system_*.c> file and how/if the SystemInit() function updates 
@@ -117,7 +120,7 @@ int main(void)
 	  GPIOA->BSRRH |= ((uint16_t)(1<<5));
 	  GPIOA->BSRRH &= ~((uint16_t)(1<<5));
 
-	  //PR3
+	  //PR3_1
 	  GPIOA->ODR|=(uint16_t)((0b1)<<5);
 
 	  for(k;k < 999999;k++)
@@ -130,9 +133,27 @@ int main(void)
 
 	  	  }
 
+	 // PR3 _2
+
+	 button=getValue(GPIOC->IDR);
+		  if(button==1)
+			  GPIOA->ODR |=(uint16_t)(0b1<<5);
+		  else
+	 GPIOA->ODR &=~((uint16_t)(0b1<<5));
+
 	i++;
   }
   return 0;
+}
+
+
+int getValue(uint16_t button) // sleduj bit ci 0 alebo 1
+{
+	if(((button>>13)& 0b01)==1)
+		return 0 ;
+	else
+		return 1;
+
 }
 
 #ifdef  USE_FULL_ASSERT
