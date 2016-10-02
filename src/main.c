@@ -101,6 +101,15 @@ int main(void)
 
   while (1)
   {
+	  GPIOA->ODR |= (uint16_t)(1 << 5); //zapina
+	  GPIOA->ODR &= ~(uint16_t)(1 << 5); //vypina
+
+	  GPIOA->BSRRL |= ((uint16_t)(1<<5));
+	  GPIOA->BSRRL &= ~((uint16_t)(1<<5));
+
+	  GPIOA->BSRRH |= ((uint16_t)(1<<5));
+	  GPIOA->BSRRH &= ~((uint16_t)(1<<5));
+
 	i++;
   }
   return 0;
