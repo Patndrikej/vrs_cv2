@@ -54,6 +54,13 @@ int main(void)
   int k = 0;
   int p = 0;
   int button=0;
+  int button1=0;
+
+  int tmp1 = 0;
+  int tmp2 = 0;
+  int tmp3 = 0;
+
+  int counter = 0;
   /**
   *  IMPORTANT NOTE!
   *  See the <system_*.c> file and how/if the SystemInit() function updates 
@@ -111,6 +118,7 @@ int main(void)
 
   while (1)
   {
+	  /*
 	  GPIOA->ODR |= (uint16_t)(1 << 5); //zapina
 	  GPIOA->ODR &= ~(uint16_t)(1 << 5); //vypina
 
@@ -140,6 +148,46 @@ int main(void)
 			  GPIOA->ODR |=(uint16_t)(0b1<<5);
 		  else
 	 GPIOA->ODR &=~((uint16_t)(0b1<<5));
+		   */
+	// PR3_3
+	button1=getValue(GPIOC->IDR);
+	if (button1 == 1)
+	{
+		while(counter < 6)
+		{
+			counter++; //5 "impulzov"
+		}
+		counter = 0;
+	}
+	button1=getValue(GPIOC->IDR);
+	if (button1 == 0)
+		{
+			while(counter < 6)
+			{
+				counter++; //5 "impulzov"
+			}
+			counter = 0;
+		}
+	button1=getValue(GPIOC->IDR);
+	if (button1 == 1)
+		{
+			while(counter < 6)
+			{
+				counter++; //5 "impulzov"
+
+			}
+			counter = 0;
+			if(tmp1 == 0)
+			{
+				GPIOA->ODR |=(uint16_t)(0b1<<5);
+				tmp1 = 1;
+			}
+			else if(tmp1 == 1)
+			{
+				GPIOA->ODR &= ~(uint16_t)(0b1<<5);
+				tmp1 = 0;
+			}
+		}
 
 	i++;
   }
