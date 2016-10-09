@@ -91,13 +91,14 @@ int main(void)
     GPIOA->OSPEEDR |= (uint32_t)((0b11)<<(5*2));
 
 
+
     GPIOC->MODER &= ~((0b11)<<(13*2));
     GPIOC->OTYPER &= ~((0b1)<<13);
     GPIOC->PUPDR &= ~((0b11)<<(13*2));
 
     // komentár
 
-    /*
+
 
     RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA,ENABLE);  //zapnutie periferie GPIOA
     //================== Uloha 1===================================================
@@ -114,7 +115,7 @@ int main(void)
       GPIOC->PUPDR |= (0b00)<<(13*2);
 
 
-    */
+
 
   while (1)
   {
@@ -128,18 +129,14 @@ int main(void)
 	  GPIOA->BSRRH |= ((uint16_t)(1<<5));
 	  GPIOA->BSRRH &= ~((uint16_t)(1<<5));
 
+	  button1=getValue(GPIOC->IDR);
+
 	  //PR3_1
 	  GPIOA->ODR|=(uint16_t)((0b1)<<5);
 
-	  for(k;k < 999999;k++)
-	  {
-
-	  }
+	  for(k;k < 999999;k++) {}
 	  GPIOA->ODR&= ~((uint16_t)((0b1)<<5));
-	  for(p;p < 999999 ;p++)
-	  	  {
-
-	  	  }
+	  for(p;p < 999999 ;p++) {}
 
 	 // PR3 _2
 
@@ -148,7 +145,7 @@ int main(void)
 			  GPIOA->ODR |=(uint16_t)(0b1<<5);
 		  else
 	 GPIOA->ODR &=~((uint16_t)(0b1<<5));
-		   */
+*/
 	// PR3_3
 	button1=getValue(GPIOC->IDR);
 	if (button1 == 1)
@@ -158,41 +155,43 @@ int main(void)
 			counter++; //5 "impulzov"
 		}
 		counter = 0;
-	}
-	button1=getValue(GPIOC->IDR);
-	if (button1 == 0)
-		{
-			while(counter < 6)
-			{
-				counter++; //5 "impulzov"
-			}
-			counter = 0;
-		}
-	button1=getValue(GPIOC->IDR);
-	if (button1 == 1)
-		{
-			while(counter < 6)
-			{
-				counter++; //5 "impulzov"
 
-			}
-			counter = 0;
-			if(tmp1 == 0)
-			{
-				GPIOA->ODR |=(uint16_t)(0b1<<5);
-				tmp1 = 1;
-			}
-			else if(tmp1 == 1)
-			{
-				GPIOA->ODR &= ~(uint16_t)(0b1<<5);
-				tmp1 = 0;
-			}
-		}
+		button1=getValue(GPIOC->IDR);
+			if (button1 == 0)
+				{
+					while(counter < 6)
+					{
+						counter++; //5 "impulzov"
+					}
+					counter = 0;
 
+					button1=getValue(GPIOC->IDR);
+						if (button1 == 1)
+							{
+								while(counter < 6)
+								{
+									counter++; //5 "impulzov"
+
+								}
+								counter = 0;
+								if(tmp1 == 0)
+								{
+									GPIOA->ODR |=(uint16_t)(0b1<<5);
+									tmp1 = 1;
+								}
+								else if(tmp1 == 1)
+								{
+									GPIOA->ODR &= ~(uint16_t)(0b1<<5);
+									tmp1 = 0;
+								}
+							}
+					}
+				}
 	i++;
   }
   return 0;
 }
+
 
 
 int getValue(uint16_t button) // sleduj bit ci 0 alebo 1
